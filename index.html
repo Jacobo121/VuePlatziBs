@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="app">
+    <div id="app" :style="{background: '#' + color}">
         <!-- : es la abreviacion de v-bind -->
         <img @mouseover="toggleShowPrices" 
             @mouseout="toggleShowPrices"
