@@ -9,7 +9,12 @@
 </head>
 <body>
     <div id="app">
-        <h1> 
+        <!-- : es la abreviacion de v-bind -->
+        <img @mouseover="toggleShowPrices" 
+            @mouseout="toggleShowPrices"
+            v-bind:src="img" :alt="name">
+
+        <h1 :class="changePercent > 0 ? 'green' : 'red' "> 
             {{name}} 
             <!-- v-if remueve directamente del DOM la condicion que no se cumple -->
             <span v-if="changePercent > 0" >😁</span>
@@ -20,20 +25,33 @@
             <span v-show="changePercent > 0" >🙄</span>
             <span v-show="changePercent < 0" > 😂 </span>
             <span v-show="changePercent == 0" > 😣 </span>
+
+            <!-- V-on sirve para disparar un evento, despues de los dos puntos va el evento click en este caso  
+            De igual forma podemos abreviar v-on: con un simple @-->
+            <span v-on:click="toggleShowPrices" >{{showPrices ? '🤩' : '😶'}}</span>
         </h1>
 
-        <ul>
+        
+
+        <ul v-show="showPrices">
             <!-- P e I son las variables en este caso, p representa el elemento y I el indice -->
-            <li v-for="(p, i) in prices" v-bind:key="p" > {{ i }} - {{ p }}</li>
+            <li 
+                class="uppercase"
+                :class="{orange: p.value === price, red: p.value < price, green: p.value > price }"
+                v-for="(p, i) in pricesWithDays" 
+                v-bind:key="p" > 
+                {{ i }} - {{p.day}} - {{ p.value }} 
+            </li>
         </ul>
 
-        <ul>
-            <!-- Para accerder a un array que tiene objetos => -->
+        <!-- <ul>
+            Para accerder a un array que tiene objetos =>
             <li v-for="(p, i) in pricesWithDays" v-bind:key="p.day" > {{ i }} - {{p.day}} - {{ p.value }}</li>
-        </ul>
+        </ul> -->
 
-        <!-- : es la abreviacion de v-bind -->
-        <img v-bind:src="img" :alt="name">
+        
+
+        
 
     </div>
 
