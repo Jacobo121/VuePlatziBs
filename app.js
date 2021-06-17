@@ -6,6 +6,7 @@ new Vue({
     data(){
         return {
             name: 'Bitcoin',
+            symbol: 'BTC',
             img: 'https://cryptologos.cc/logos/bitcoin-btc-logo.png',
             changePercent: 1,
             price: 8400,
@@ -21,6 +22,23 @@ new Vue({
             ],
 
             showPrices: false
+        }
+    },
+
+    /* computed son propiedades que se calculan en tiempo real en base a otras propiedades
+        un ejemplo sera que calculemos en precio del BTC en Euros en base al precio del BTC en dolares
+        se calcula en tiempo real cada que cambie el precio del BTC 
+    */
+    computed: {
+        title () {
+            return `${this.name} - ${this.symbol}`
+        }
+    },
+
+    /*  */
+    watch : {
+        showPrices(newVal, olVal) {
+            console.log(newVal, olVal);
         }
     },
 

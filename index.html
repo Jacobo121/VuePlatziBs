@@ -15,7 +15,7 @@
             v-bind:src="img" :alt="name">
 
         <h1 :class="changePercent > 0 ? 'green' : 'red' "> 
-            {{name}} 
+            {{title}}
             <!-- v-if remueve directamente del DOM la condicion que no se cumple -->
             <span v-if="changePercent > 0" >😁</span>
             <span v-else-if="changePercent < 0" >🤯</span>
