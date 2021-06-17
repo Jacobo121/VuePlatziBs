@@ -31,6 +31,9 @@
             <span v-on:click="toggleShowPrices" >{{showPrices ? '🤩' : '😶'}}</span>
         </h1>
 
+        <input type="number" v-model="value">
+        <span>{{convertedValue}}</span>
+
         
 
         <ul v-show="showPrices">

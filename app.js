@@ -9,6 +9,7 @@ new Vue({
             symbol: 'BTC',
             img: 'https://cryptologos.cc/logos/bitcoin-btc-logo.png',
             changePercent: 1,
+            value: 0,
             price: 8400,
             color: 'f4f4f4',
             pricesWithDays: [
@@ -32,10 +33,20 @@ new Vue({
     computed: {
         title () {
             return `${this.name} - ${this.symbol}`
+        },
+
+        convertedValue () {
+            if (!this.value) {
+                return 0
+            }
+            
+            return this.value / this.price
         }
     },
 
-    /*  */
+    /* Watcher es un disparador de codigo, cada que cambia el precio del BTC en dolar esta funcion se va a ejecutar 
+        como una notificacion de que el BTC alcanzó otro precio
+    */
     watch : {
         showPrices(newVal, olVal) {
             console.log(newVal, olVal);
