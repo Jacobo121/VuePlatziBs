@@ -1,3 +1,76 @@
+Vue.component('CoinDetail', {
+
+    props: ['coin'],
+
+    data () {
+        return {
+            showPrices: false,
+            value: 0,
+        }
+    },
+
+    methods: {
+        toggleShowPrices () {
+            this.showPrices = !this.showPrices
+            this.coin.color = this.coin.color.split('').reverse().join('')
+        }
+    },
+
+    computed: {
+        title () {
+            return `${this.coin.name} - ${this.coin.symbol}`
+        },
+
+        convertedValue () {
+            if (!this.value) {
+                return 0
+            }
+            
+            return this.value / this.coin.price
+        }
+    },
+
+    template: `
+    <div>
+        <!-- : es la abreviacion de v-bind -->
+        <img @mouseover="toggleShowPrices" 
+        @mouseout="toggleShowPrices"
+        v-bind:src="coin.img" :alt="coin.name" />
+
+        <h1 :class="coin.changePercent > 0 ? 'green' : 'red' "> 
+            {{title}}
+            <!-- v-if remueve directamente del DOM la condicion que no se cumple -->
+            <span v-if="coin.changePercent > 0" >😁</span>
+            <span v-else-if="coin.changePercent < 0" >🤯</span>
+            <span v-else > 😑 </span>
+
+            <!-- v-show cambia el display del elemento -->
+            <span v-show="coin.changePercent > 0" >🙄</span>
+            <span v-show="coin.changePercent < 0" > 😂 </span>
+            <span v-show="coin.changePercent == 0" > 😣 </span>
+
+            <!-- V-on sirve para disparar un evento, despues de los dos puntos va el evento click en este caso  
+            De igual forma podemos abreviar v-on: con un simple @-->
+            <span v-on:click="toggleShowPrices" >{{showPrices ? '🤩' : '😶'}}</span>
+        </h1>
+
+        <input type="number" v-model="value">
+        <span>{{convertedValue}}</span>
+
+        <ul v-show="showPrices">
+            <!-- P e I son las variables en este caso, p representa el elemento y I el indice -->
+            <li 
+                class="uppercase"
+                :class="{orange: p.value === coin.price, red: p.value < coin.price, green: p.value > coin.price }"
+                v-for="(p, i) in coin.pricesWithDays" 
+                v-bind:key="p" > 
+                {{ i }} - {{p.day}} - {{ p.value }} 
+            </li>
+        </ul>
+
+    </div>
+    `,
+})
 
 
 new Vue({
@@ -5,24 +78,23 @@ new Vue({
 
     data(){
         return {
-            name: 'Bitcoin',
-            symbol: 'BTC',
-            img: 'https://cryptologos.cc/logos/bitcoin-btc-logo.png',
-            changePercent: 1,
-            value: 0,
-            price: 8400,
-            color: 'f4f4f4',
-            pricesWithDays: [
-                { day: 'Lunes', value: 8400 },
-                { day: 'Martes', value: 7900 },
-                { day: 'Miercoles', value: 8200 },
-                { day: 'Jueves', value: 9000 },
-                { day: 'Viernes', value: 9400 },
-                { day: 'Sabado', value: 10000 },
-                { day: 'Domingo', value: 10200 },
-            ],
-
-            showPrices: false
+            btc: {
+                name: 'Bitcoin',
+                symbol: 'BTC',
+                img: 'https://cryptologos.cc/logos/bitcoin-btc-logo.png',
+                changePercent: 1,
+                price: 8400,
+                color: 'f4f4f4',
+                pricesWithDays: [
+                    { day: 'Lunes', value: 8400 },
+                    { day: 'Martes', value: 7900 },
+                    { day: 'Miercoles', value: 8200 },
+                    { day: 'Jueves', value: 9000 },
+                    { day: 'Viernes', value: 9400 },
+                    { day: 'Sabado', value: 10000 },
+                    { day: 'Domingo', value: 10200 },
+                ],
+            },
         }
     },
 
@@ -31,32 +103,21 @@ new Vue({
         se calcula en tiempo real cada que cambie el precio del BTC 
     */
     computed: {
-        title () {
-            return `${this.name} - ${this.symbol}`
-        },
-
-        convertedValue () {
-            if (!this.value) {
-                return 0
-            }
-            
-            return this.value / this.price
-        }
     },
 
     /* Watcher es un disparador de codigo, cada que cambia el precio del BTC en dolar esta funcion se va a ejecutar 
         como una notificacion de que el BTC alcanzó otro precio
     */
-    watch : {
+    /* watch : {
         showPrices(newVal, olVal) {
             console.log(newVal, olVal);
         }
-    },
+    }, */
 
-    methods: {
+    /* methods: {
         toggleShowPrices () {
             this.showPrices = !this.showPrices
             this.color = this.color.split('').reverse().join('')
         }
-    }
+    } */
 })
