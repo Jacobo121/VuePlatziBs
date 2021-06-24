@@ -12,9 +12,14 @@
         
 
         <coin-detail 
+            v-on:change-color="updateColor"
             :coin="btc"
         />
         
+        <!-- Para comunicar los diferentes componentes, para pasar informacion
+        de padre a hijo es por medio de propiedades v-bind, y para pasar info
+        de hijo a pdre es por medio de eventos v-on -->
+
         <!-- <ul>
             Para accerder a un array que tiene objetos =>
             <li v-for="(p, i) in pricesWithDays" v-bind:key="p.day" > {{ i }} - {{p.day}} - {{ p.value }}</li>
