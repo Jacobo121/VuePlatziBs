@@ -1,4 +1,4 @@
-Vue.component('CoinDetail', {
+Vue.component('coinDetail', {
 
     props: ['coin'],
 
@@ -56,6 +56,9 @@ Vue.component('CoinDetail', {
 
         <input type="number" v-model="value">
         <span>{{convertedValue}}</span>
+
+        <slot name="text"></slot>
+        <slot name="link" ></slot>
 
         <ul v-show="showPrices">
             <!-- P e I son las variables en este caso, p representa el elemento y I el indice -->

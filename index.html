@@ -14,7 +14,14 @@
         <coin-detail 
             v-on:change-color="updateColor"
             :coin="btc"
-        />
+        >
+        <template v-slot:text>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum, est, totam quidem aut maiores itaque minus saepe voluptate explicabo delectus vitae harum perspiciatis neque impedit eveniet libero corporis. Adipisci, sapiente!</p>
+        </template>
+        <template v-slot:link>
+            <p>Link</p>
+        </template>
+        </coin-detail>
         
         <!-- Para comunicar los diferentes componentes, para pasar informacion
         de padre a hijo es por medio de propiedades v-bind, y para pasar info
